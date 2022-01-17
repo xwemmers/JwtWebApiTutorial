@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +13,7 @@ namespace JwtWebApiTutorial.Controllers
     public class AuthController : ControllerBase
     {
         
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public ActionResult<string> Login(UserDto user)
         {
@@ -40,6 +41,7 @@ namespace JwtWebApiTutorial.Controllers
                 new Claim(ClaimTypes.Role, "Guest")
             };
 
+            // De secret key staat 'normaal gesproken' in de appsettings.json
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("Some secret key at least 16 characters"));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);

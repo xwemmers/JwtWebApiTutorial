@@ -19,8 +19,7 @@ namespace JwtWebApiTutorial.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Admin")]
-
+        //[Authorize(Roles = "Admin")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
